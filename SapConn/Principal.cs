@@ -1,6 +1,7 @@
 ﻿using SAP.Middleware.Connector;
 using SapConn.Models;
 using System;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -20,15 +21,7 @@ namespace SapConn
 
         private void Principal_Load(object sender, EventArgs e)
         {
-            try
-            {
-                RefreshDestination();
-                RefreshFunctions();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("erro: " + ex.Message);
-            }
+
         }
 
         private void BAPIGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -158,7 +151,6 @@ namespace SapConn
         private void ConnectionString_TextChanged(object sender, EventArgs e)
         {
             RefreshDestination();
-            RefreshFunctions();
         }
 
         private void SearchBox_TextChanged(object sender, EventArgs e)
@@ -258,6 +250,21 @@ namespace SapConn
         private void BtnRFC_Click(object sender, EventArgs e)
         {
             RefreshMetadata(RFCBox.Text);
+        }
+
+        private void BtnRefreshFunctions_Click(object sender, EventArgs e)
+        {
+            RefreshFunctions();
+        }
+
+        private void BtnSetConnPRD_Click(object sender, EventArgs e)
+        {
+            ConnectionString.Text = ConfigurationManager.AppSettings["SAPConnPRD"];
+        }
+
+        private void BtnSetConnQAS_Click(object sender, EventArgs e)
+        {
+            ConnectionString.Text = ConfigurationManager.AppSettings["SAPConnQAS"];
         }
     }
 }
